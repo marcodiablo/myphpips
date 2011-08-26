@@ -1,6 +1,8 @@
 <?php
+
 /**
- * MyPHPIPS (Based on PHPIDS)
+ * MyPHPIPS (Based on PHPIDS) - v0.1 Alpha
+ * http://code.google.com/p/myphpips/
  *
  * PHPIPS is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +19,10 @@
  *
  * PHP version 5.1.6+
  *
- * @author   Adnan bin Mohd Shukor <adnan@cybersecurity.my>
- * @author   Mario Heiderich <mario.heiderich@gmail.com>
- * @author   Christian Matthies <ch0012@gmail.com>
- * @author   Lars Strojny <lars@strojny.net>
+ * @MyPHPIPS author   Adnan bin Mohd Shukor <adnan@cybersecurity.my>
+ * @PHPIDS author     Mario Heiderich <mario.heiderich@gmail.com>
+ * @PHPIDS author     Christian Matthies <ch0012@gmail.com>
+ * @PHPIDS author     Lars Strojny <lars@strojny.net>
  * @license  http://www.gnu.org/licenses/lgpl.html LGPL
  */
 

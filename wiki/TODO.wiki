@@ -1,6 +1,4 @@
 #labels todo
-Code ideas etc.
-
 = TODO =
 
 Feature request:

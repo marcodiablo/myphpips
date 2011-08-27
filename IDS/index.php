@@ -1,7 +1,7 @@
 <?php
 
 /**
- * MyPHPIPS (Based on PHPIDS) - v0.1 Alpha
+ * MyPHPIPS (Based on PHPIDS) - v0.1.0.7 Alpha
  * http://code.google.com/p/myphpips/
  *
  * PHPIPS is free software; you can redistribute it and/or modify

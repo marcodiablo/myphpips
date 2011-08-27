@@ -33,17 +33,6 @@
         <impact>5</impact>
     </filter>
     <filter>
-        <id>39</id>
-        <rule><![CDATA[(?:\\x[01fe][\db-ce-f])|(?:%[01fe][\db-ce-f])|(?:&#[01fe][\db-ce-f])|(?:\\[01fe][\db-ce-f])|(?:&#x[01fe][\db-ce-f])]]></rule>
-        <description>Detects nullbytes and other dangerous characters</description>
-        <tags>
-            <tag>id</tag>
-            <tag>rfe</tag>
-            <tag>xss</tag>
-        </tags>
-        <impact>5</impact>
-    </filter>   
-    <filter>
         <id>40</id>
         <rule><![CDATA[(?:\)\s*when\s*\d+\s*then)|(?:"\s*(?:#|--|{))|(?:\/\*!\s?\d+)|(?:ch(?:a)?r\s*\(\s*\d)|(?:(?:(n?and|x?or|not)\s+|\|\||\&\&)\s*\w+\()]]></rule>
         <description>Detects MySQL comments, conditions and ch(a)r injections</description>
@@ -67,7 +56,7 @@
     </filter>   
     <filter>
         <id>42</id>
-        <rule><![CDATA[(?:"\s*or\s*\d)|(?:\\x(?:23|27|3d))|(?:^.?"$)|(?:^.*\\".+(?<!\\)")|(?:(?:^["\\]*(?:[\d"]+|[^"]+"))+\s*(?:n?and|x?or|not|\|\||\&\&)\s*[\w"[+&!@(),.-])|(?:[^\w\s]\w+\s*[|-]\s*"\s*\w)|(?:@\w+\s+(and|or)\s*["\d]+)|(?:@[\w-]+\s(and|or)\s*[^\w\s])|(?:[^\w\s:]\s*\d\W+[^\w\s]\s*".)]]></rule>
+        <rule><![CDATA[(?:"\s*or\s*"?\d)|(?:\\x(?:23|27|3d))|(?:^.?"$)|(?:(?:^["\\]*(?:[\d"]+|[^"]+"))+\s*(?:n?and|x?or|not|\|\||\&\&)\s*[\w"[+&!@(),.-])|(?:[^\w\s]\w+\s*[|-]\s*"\s*\w)|(?:@\w+\s+(and|or)\s*["\d]+)|(?:@[\w-]+\s(and|or)\s*[^\w\s])|(?:[^\w\s:]\s*\d\W+[^\w\s]\s*".)|(?:\Winformation_schema|table_name\W)]]></rule>
         <description>Detects classic SQL injection probings 1/2</description>
         <tags>
             <tag>sqli</tag>
@@ -78,7 +67,7 @@
     </filter>  
     <filter>
         <id>43</id>
-        <rule><![CDATA[(?:"\s*\*.+(?:or|id)\W*"\d)|(?:\^")|(?:^[\w\s"-]+(?<=and\s)(?<=or\s)(?<=xor\s)(?<=nand\s)(?<=not\s)(?<=\|\|)(?<=\&\&)\w+\()|(?:"[\s\d]*[^\w\s]+\W*\d\W*.*["\d])|(?:"\s*[^\w\s?]+\s*[^\w\s]+\s*")|(?:"\s*[^\w\s]+\s*[\W\d].*(?:#|--))|(?:".*\*\s*\d)|(?:"\s*or\s[\w-]+.*\d)|(?:[()*<>%+-][\w-]+[^\w\s]+"[^,])]]></rule>
+        <rule><![CDATA[(?:"\s*\*.+(?:or|id)\W*"\d)|(?:\^")|(?:^[\w\s"-]+(?<=and\s)(?<=or\s)(?<=xor\s)(?<=nand\s)(?<=not\s)(?<=\|\|)(?<=\&\&)\w+\()|(?:"[\s\d]*[^\w\s]+\W*\d\W*.*["\d])|(?:"\s*[^\w\s?]+\s*[^\w\s]+\s*")|(?:"\s*[^\w\s]+\s*[\W\d].*(?:#|--))|(?:".*\*\s*\d)|(?:"\s*or\s[^\d]+[\w-]+.*\d)|(?:[()*<>%+-][\w-]+[^\w\s]+"[^,])]]></rule>
         <description>Detects classic SQL injection probings 2/2</description>
         <tags>
             <tag>sqli</tag>
@@ -100,7 +89,7 @@
     </filter> 
     <filter>
         <id>45</id>
-        <rule><![CDATA[(?:union\s*(?:all|distinct|[(!@]*)?\s*[([]*\s*select)|(?:\w+\s+like\s+\")|(?:like\s*"\%)|(?:"\s*like\W*["\d])|(?:"\s*(?:n?and|x?or|not |\|\||\&\&)\s+[\s\w]+=\s*\w+\s*having)|(?:"\s*\*\s*\w+\W+")|(?:"\s*[^?\w\s=.,;)(]+\s*[(@"]*\s*\w+\W+\w)|(?:select\s*[\[\]()\s\w\.,-]+from)]]></rule>
+        <rule><![CDATA[(?:union\s*(?:all|distinct|[(!@]*)?\s*[([]*\s*select)|(?:\w+\s+like\s+\")|(?:like\s*"\%)|(?:"\s*like\W*["\d])|(?:"\s*(?:n?and|x?or|not |\|\||\&\&)\s+[\s\w]+=\s*\w+\s*having)|(?:"\s*\*\s*\w+\W+")|(?:"\s*[^?\w\s=.,;)(]+\s*[(@"]*\s*\w+\W+\w)|(?:select\s*[\[\]()\s\w\.,"-]+from)|(?:find_in_set\s*\()]]></rule>
         <description>Detects basic SQL authentication bypass attempts 2/3</description>
         <tags>
             <tag>sqli</tag>
@@ -122,7 +111,7 @@
     </filter> 
     <filter>
         <id>47</id>
-        <rule><![CDATA[(?:[\d\W]\s+as\s*["\w]+\s*from)|(?:^[\W\d]+\s*(?:union|select|create|rename|truncate|load|alter|delete|update|insert|desc))|(?:(?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\s+(?:concat|char|load_file)\s?\(?)|(?:end\s*\);)|("\s+regexp\W)|(?:[\s(]load_file\s*\()]]></rule>
+        <rule><![CDATA[(?:[\d\W]\s+as\s*["\w]+\s*from)|(?:^[\W\d]+\s*(?:union|select|create|rename|truncate|load|alter|delete|update|insert|desc))|(?:(?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\s+(?:(?:group_)concat|char|load_file)\s?\(?)|(?:end\s*\);)|("\s+regexp\W)|(?:[\s(]load_file\s*\()]]></rule>
         <description>Detects concatenated basic SQL injection and SQLLFI attempts</description>
         <tags>
             <tag>sqli</tag>
@@ -133,7 +122,7 @@
     </filter>
     <filter>
         <id>48</id>
-        <rule><![CDATA[(?:\d+\s*or\s*\d+\s*[\-+])|(?:\/\w+;?\s+(?:having|and|or|select))|(?:\d\s+group\s+by.+\()|(?:(?:;|#|--)\s*(?:drop|alter))|(?:(?:;|#|--)\s*(?:update|insert)\s*\w{2,})|(?:[^\w]SET\s*@\w+)|(?:(?:n?and|x?or|not |\|\||\&\&)[\s(]+\w+[\s)]*[!=+]+[\s\d]*["=()])]]></rule>
+        <rule><![CDATA[(?:@.+=\s*\(\s*select)|(?:\d+\s*or\s*\d+\s*[\-+])|(?:\/\w+;?\s+(?:having|and|or|select)\W)|(?:\d\s+group\s+by.+\()|(?:(?:;|#|--)\s*(?:drop|alter))|(?:(?:;|#|--)\s*(?:update|insert)\s*\w{2,})|(?:[^\w]SET\s*@\w+)|(?:(?:n?and|x?or|not |\|\||\&\&)[\s(]+\w+[\s)]*[!=+]+[\s\d]*["=()])]]></rule>
         <description>Detects chained SQL injection attempts 1/2</description>
         <tags>
             <tag>sqli</tag>
@@ -203,7 +192,7 @@
     </filter>
     <filter>
         <id>55</id>
-        <rule><![CDATA[(?:\sexec\s+xp_cmdshell)|(?:"\s*!\s*["\w])|(?:from\s+information_schema\W)|(?:(?:(?:current_)?user|database|schema|connection_id)\s*\([^\)]*)|(?:";?\s*(?:select|union|having)\s*[^\s])|(?:\wiif\s*\()|(?:exec\s+master\.)|(?:union select @)|(?:union[\w(\s]*select)|(?:select.*\w?user\()|(?:into[\s+]+(?:dump|out)file\s*")]]></rule>
+        <rule><![CDATA[(?:\sexec\s+xp_cmdshell)|(?:"\s*!\s*["\w])|(?:from\W+information_schema\W)|(?:(?:(?:current_)?user|database|schema|connection_id)\s*\([^\)]*)|(?:";?\s*(?:select|union|having)\s*[^\s])|(?:\wiif\s*\()|(?:exec\s+master\.)|(?:union select @)|(?:union[\w(\s]*select)|(?:select.*\w?user\()|(?:into[\s+]+(?:dump|out)file\s*")]]></rule>
         <description>Detects MSSQL code execution and information gathering attempts</description>
         <tags>
             <tag>sqli</tag>
@@ -213,7 +202,7 @@
     </filter>
     <filter>
         <id>56</id>
-        <rule><![CDATA[(?:merge.*using\s*\()|(execute\s*immediate\s*")|(?:\W+\d*\s*having\s*[^\s])|(?:match\s*[\w(),+-]+\s*against\s*\()]]></rule>
+        <rule><![CDATA[(?:merge.*using\s*\()|(execute\s*immediate\s*")|(?:\W+\d*\s*having\s*[^\s\-])|(?:match\s*[\w(),+-]+\s*against\s*\()]]></rule>
         <description>Detects MATCH AGAINST, MERGE, EXECUTE IMMEDIATE and HAVING injections</description>
         <tags>
             <tag>sqli</tag>
@@ -223,8 +212,8 @@
     </filter>
     <filter>
         <id>57</id>
-        <rule><![CDATA[(?:select\s*\*\s*from)|((?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\s*\(\s*space\s*\()]]></rule>
-        <description>Detects MySQL comment-/space-obfuscated injections</description>
+        <rule><![CDATA[(?:,.*[)\da-f"]"(?:".*"|\Z|[^"]+))|(?:\Wselect.+\W*from)|((?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\s*\(\s*space\s*\()]]></rule>
+        <description>Detects MySQL comment-/space-obfuscated injections and backtick termination</description>
         <tags>
             <tag>sqli</tag>
             <tag>id</tag>
@@ -277,7 +266,7 @@
     </filter>   
     <filter>
         <id>62</id>
-        <rule><![CDATA[(?:function[^(]*\([^)]*\))|(?:(?:delete|void|throw|instanceof|new|typeof)\W+\w+\s*[([])|([)\]]\s*\.\s*\w+\s*=)|(?:\(\s*new\s+\w+\s*\)\.)]]></rule>
+        <rule><![CDATA[(?:function[^(]*\([^)]*\))|(?:(?:delete|void|throw|instanceof|new|typeof)[^\w.]+\w+\s*[([])|([)\]]\s*\.\s*\w+\s*=)|(?:\(\s*new\s+\w+\s*\)\.)]]></rule>
         <description>Detects common function declarations and special JS operators</description>
         <tags>
             <tag>id</tag>
@@ -322,10 +311,69 @@
     <filter>
         <id>70</id>
         <rule><![CDATA[(?:\[\$(?:ne|eq|lte?|gte?|n?in|mod|all|size|exists|type|slice|or)\])]]></rule>
-        <description>finds basic MongoDB SQL injection attempts</description>
+        <description>Finds basic MongoDB SQL injection attempts</description>
         <tags>
             <tag>sqli</tag>
         </tags>
         <impact>4</impact>
-    </filter>      
+    </filter>
+  <filter>
+        <id>72</id>
+        <rule><![CDATA[(?:(sleep\((\s*)(\d*)(\s*)\)|benchmark\((.*)\,(.*)\)))]]></rule>
+        <description>Detects blind sqli tests using sleep() or benchmark().</description>
+        <tags>
+            <tag>sqli</tag>
+            <tag>id</tag>
+        </tags>
+        <impact>4</impact>
+    </filter>
+    <filter>
+        <id>73</id>
+        <rule><![CDATA[(?i:(\%SYSTEMROOT\%))]]></rule>
+        <description>An attacker is trying to locate a file to read or write.</description>
+        <tags>
+            <tag>files</tag>
+            <tag>id</tag>
+        </tags>
+        <impact>4</impact>
+    </filter>   
+    <filter>
+        <id>74</id>
+        <rule><![CDATA[(?i:(ping(.*)[\-(.*)\w|\w(.*)\-]))]]></rule>
+        <description>Detects remote code exectuion tests. Will match "ping -n 3 localhost" and "ping localhost -n 3" </description>
+        <tags>
+            <tag>Command Execution</tag>
+            <tag>id</tag>
+        </tags>
+        <impact>5</impact>
+    </filter>       
+    <filter>
+        <id>75</id>
+        <rule><![CDATA[(?:(((.*)\%[c|d|i|e|f|g|o|s|u|x|p|n]){8}))]]></rule>
+        <description>Looking for a format string attack</description>
+        <tags>
+            <tag>format string</tag>
+        </tags>
+        <impact>4</impact>
+    </filter> 
+    <filter>
+        <id>76</id>
+        <rule><![CDATA[(?:(union(.*)select(.*)from))]]></rule>
+        <description>Looking for basic sql injection. Common attack string for mysql, oracle and others.</description>
+        <tags>
+            <tag>sqli</tag>
+            <tag>id</tag>
+        </tags>
+        <impact>3</impact>
+    </filter>
+    <filter>
+        <id>77</id>
+        <rule><![CDATA[(?:^(-0000023456|4294967295|4294967296|2147483648|2147483647|0000012345|-2147483648|-2147483649|0000023456|2.2250738585072007e-308|1e309)$)]]></rule>
+        <description>Looking for intiger overflow attacks, these are taken from skipfish, except 2.2250738585072007e-308 is the "magic number" crash</description>
+        <tags>
+            <tag>sqli</tag>
+            <tag>id</tag>
+        </tags>
+        <impact>3</impact>
+    </filter>        
 </filters>

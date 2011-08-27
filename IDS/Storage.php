@@ -5,7 +5,7 @@
  * 
  * Requirements: PHP5, SimpleXML
  *
- * Copyright (c) 2008 PHPIDS group (http://php-ids.org)
+ * Copyright (c) 2008 PHPIDS group (https://phpids.org)
  *
  * PHPIDS is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -102,9 +102,7 @@ class IDS_Filter_Storage
 
             if ($caching && $caching != 'none') {
                 $this->cacheSettings = $init->config['Caching'];
-	        if ( !defined('IDSPATH') )
-        	   define('IDSPATH', dirname(__FILE__) . '/');
-                include_once IDSPATH.'Factory.php';
+                include_once 'Factory.php';
                 $this->cache = IDS_Caching::factory($init, 'storage');
             }
 
@@ -232,9 +230,7 @@ class IDS_Filter_Storage
             $nocache = $filters instanceof SimpleXMLElement;
             $filters = $nocache ? $filters->filter : $filters;
 
-	    if ( !defined('IDSPATH') )
-               define('IDSPATH', dirname(__FILE__) . '/');
-            include_once IDSPATH.'Filter.php';
+            include_once 'Filter.php';
 
             foreach ($filters as $filter) {
 

@@ -5,7 +5,7 @@
  * 
  * Requirements: PHP5, SimpleXML
  *
- * Copyright (c) 2008 PHPIDS group (http://php-ids.org)
+ * Copyright (c) 2008 PHPIDS group (https://phpids.org)
  *
  * PHPIDS is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -84,10 +84,8 @@ class IDS_Init
      */
     private function __construct($configPath = null) 
     {
-	if ( !defined('IDSPATH') )
-           define('IDSPATH', dirname(__FILE__) . '/');
-        include_once IDSPATH.'Monitor.php';
-        include_once IDSPATH.'Storage.php';
+        include_once 'Monitor.php';
+        include_once 'Storage.php';
 
         if ($configPath) {
             $this->setConfigPath($configPath);

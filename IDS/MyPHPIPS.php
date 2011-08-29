@@ -45,12 +45,23 @@ if(isset($MyPHPIPS_blocking_mode))
 else
    $MyPHPIPS_blocking_mode = "normal";
 
+if(isset($MyPHPIPS_request_mode))
+   switch($MyPHPIPS_request_mode)
+   {
+      case "aggressive":
+         $MyPHPIPS_request_mode = "aggressive";
+      default:
+         $MyPHPIPS_request_mode = "normal";
+   }
+else
+   $MyPHPIPS_request_mode = "normal";
+
 try {
 
-    $request = array(
-      'REQUEST' => $_REQUEST,
-      'COOKIE' => $_COOKIE
-    );
+    if($MyPHPIPS_request_mode == "aggressive")
+       $request = array('REQUEST' => $_REQUEST, 'COOKIE' => $_COOKIE);
+    else
+       $request = array('REQUEST' => $_REQUEST);
 
     $init = IDS_Init::init(IDSPATH . 'CoreConf.php');
 
